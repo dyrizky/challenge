@@ -3,4 +3,6 @@ class PagesController < ApplicationController
   end
   def yeah
   end
+  def abc
+  end
 end
