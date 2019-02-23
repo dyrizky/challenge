@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  
+  devise_for :users, only: [:sessions]
+  root to: 'pages#welcome'
+  
   get 'pages/welcome'
   get 'pages/yeah'
 

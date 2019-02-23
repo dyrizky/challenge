@@ -1,0 +1,28 @@
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="form-group has-feedback">
+    
+    <%= f.email_field :email, autofocus: true, class:"form-control",placeholder:"Username",autocomplete: "email" %>
+    <span class="fa fa-user fa-2x form-control-feedback"></span>
+  </div>
+
+  <div class="form-group has-feedback">
+    
+    <%= f.password_field :password, class:"form-control", placeholder:"password",autocomplete: "current-password" %>
+    <span class="fa fa-key fa-2x form-control-feedback"></span>
+  </div>
+
+  <div class="row form-group">
+    <% if devise_mapping.rememberable? %>
+      <div class="col-xs-6">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+    <% end %>
+    <div class="col-xs-6">
+      <%= f.submit "Log in" ,:class=>"btn btn-primary btn-block btn-flat" %>
+    </div>
+  </div>
+<% end %>
+
+
