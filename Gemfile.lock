@@ -63,6 +63,8 @@ GEM
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.10.0)
+    font-awesome-rails (4.7.0.4)
+      railties (>= 3.2, < 6.0)
     foreman (0.85.0)
       thor (~> 0.19.1)
     globalid (0.4.2)
@@ -200,6 +202,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.2)
   devise
+  font-awesome-rails
   foreman
   jbuilder (~> 2.5)
   kaminari
