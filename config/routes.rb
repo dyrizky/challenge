@@ -10,7 +10,8 @@ Rails.application.routes.draw do
       as :user do
         delete 'sign_out', to: '/devise/sessions#destroy'
       end
-      resources :task, only: :index
+      get 'task', to: "task#index"
+      put 'task/complate/:id', to: "task#complate"
     end
   # end
   get '/admin', to: 'admin#index'

@@ -10,7 +10,11 @@ class Api::TaskController < AdminController
     render json: {success: true, data: @tasks, length:@count_tasks}.to_json, status: 200
   end
   
-  def yeah
+  def complate
+    @tasks = Task.find(params[:id])
+    @tasks.is_complate = (@tasks.is_complate+1%2) 
+    @tasks.save!
+    render json: {success: true, data: @tasks}.to_json, status: 200
   end
 
   def abc

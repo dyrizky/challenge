@@ -13,9 +13,9 @@
                             <label class="col-sm-2 control-label">Show </label>
                             <div class="col-sm-3">
                     <select @click="show($event)" class="form-control input-sm">
-                              <option value="5">5</option>
-                              <option value="10">10</option>
-                              <option value="25">25</option>
+                              <option selected="selected" value="10">10</option>
+                              <option value="20">20</option>
+                              <option value="30">30</option>
                               <option value="-1">All</option>
                               </select>
                   </div>
@@ -25,8 +25,11 @@
                     <div class="col-sm-6">
                         <div class="col-lg-12 col-sm-12 form-group" id="">
                             <label class="col-sm-2 control-label">Display </label>
-                              <div id="example1_filter" class="dataTables_filter">
+                              <div id="example1_filter" class="col-lg-5 col-sm-5 ">
                                 <toggle-button  @change="display($event)" color="#82C7EB" :sync="true" :width="70" :value="true" :labels="{checked: 'Table', unchecked: 'Card'}"/>
+                              </div>
+                              <div id="example1_filter" class="col-lg-5 col-sm-5" >
+                                <toggle-button  @change="display($event)" color="#82C7EB" :sync="true" :width="70" :value="true" :labels="{checked: 'Previous', unchecked: 'All'}" />
                               </div>
                           </div>
                     </div>
@@ -47,104 +50,48 @@
                 >Desc
                   <i class="fa fa-sort">
                   </i></th>
-                  <th class="sorting">Desc</th>
+                  <th class="sorting_asc"
+                @click="sortBy(coloums.due,'due')"
+                >Due Date
+                  <i class="fa fa-sort">
+                  </i></th>
+                  <th class="sorting_asc"
+                @click="sortBy(coloums.prioriti,'prio')"
+                >Priority
+                  <i class="fa fa-sort">
+                  </i></th>
                   
                 </tr>
               </thead>
               <tbody  >
                 <tr v-for="task,index in tasksData">
                   <td>{{index+number}}</td>
-                  <td>{{task.task}}</td>
+                  <td>
+                  <input type="checkbox" v-if="task.is_complate" checked  @change="changeComplate(task.id)"> 
+                  <input type="checkbox" v-else  @change="changeComplate(task.id)"> 
+                    {{task.task}} &nbsp; <span v-if="task.is_complate" class="label label-success">Complate</span></td>
                   <td>{{task.task_desc}}</td>
-                  <td></td>
+                  <td>{{task.due_date}}</td>
+                  <td><span v-if="task.prioriti==1" class="label label-danger">Priority</span></td>
+                  
                 </tr>
               </tbody>
               </table>
-              <ul class="todo-list ui-sortable">
-                <li class="">
-                  <!-- drag handle -->
-                  <span class="handle ui-sortable-handle">
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  <!-- checkbox -->
-                  <input type="checkbox" value="">
-                  <!-- todo text -->
-                  <span class="text">Design a nice theme</span>
-                  <!-- Emphasis label -->
-                  <small class="label label-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
-                  <!-- General tools such as edit or delete-->
-                  <div class="tools">
-                    <i class="fa fa-edit"></i>
-                    <i class="fa fa-trash-o"></i>
+              <div v-else class="col-md-6 col-sm-6 col-xs-12" v-for="task,index in tasksData">
+                <div class="info-box">
+                  <span class="info-box-icon bg-aqua"><i class="fa fa-hourglass"></i></span>
+
+                  <div class="info-box-content">
+                    <span class="info-box-text"><label>Task : </label>{{task.task}}&nbsp; <span v-if="task.is_complate" class="label label-success">Complate</span></span>
+                    <span class="info-box-number"><small><label>Task Description: </label>{{task.task_desc}}</small></span>
+                    <label>Due Date : </label>{{task.due_date}}&nbsp; <span v-if="task.prioriti==1" class="label label-danger">Priority</span><br>
+                    
                   </div>
-                </li>
-                <li class="">
-                      <span class="handle ui-sortable-handle">
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  <input type="checkbox" value="">
-                  <span class="text">Make the theme responsive</span>
-                  <small class="label label-info"><i class="fa fa-clock-o"></i> 4 hours</small>
-                  <div class="tools">
-                    <i class="fa fa-edit"></i>
-                    <i class="fa fa-trash-o"></i>
-                  </div>
-                </li>
-                <li>
-                      <span class="handle ui-sortable-handle">
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  <input type="checkbox" value="">
-                  <span class="text">Let theme shine like a star</span>
-                  <small class="label label-warning"><i class="fa fa-clock-o"></i> 1 day</small>
-                  <div class="tools">
-                    <i class="fa fa-edit"></i>
-                    <i class="fa fa-trash-o"></i>
-                  </div>
-                </li>
-                <li>
-                      <span class="handle ui-sortable-handle">
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  <input type="checkbox" value="">
-                  <span class="text">Let theme shine like a star</span>
-                  <small class="label label-success"><i class="fa fa-clock-o"></i> 3 days</small>
-                  <div class="tools">
-                    <i class="fa fa-edit"></i>
-                    <i class="fa fa-trash-o"></i>
-                  </div>
-                </li>
-                <li class="" style="">
-                      <span class="handle ui-sortable-handle">
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  <input type="checkbox" value="">
-                  <span class="text">Let theme shine like a star</span>
-                  <small class="label label-default"><i class="fa fa-clock-o"></i> 1 month</small>
-                  <div class="tools">
-                    <i class="fa fa-edit"></i>
-                    <i class="fa fa-trash-o"></i>
-                  </div>
-                </li><li>
-                      <span class="handle ui-sortable-handle">
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  <input type="checkbox" value="">
-                  <span class="text">Check your messages and notifications</span>
-                  <small class="label label-primary"><i class="fa fa-clock-o"></i> 1 week</small>
-                  <div class="tools">
-                    <i class="fa fa-edit"></i>
-                    <i class="fa fa-trash-o"></i>
-                  </div>
-                </li>
-                
-              </ul>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+              </div>
+              
             <paginate v-if="tasks"
               :page-count="tasks"
               :click-handler="getResults"
@@ -167,13 +114,16 @@
         tasksData : [],
         tasks : '',
         coloums : {
-          task :1,
+          task :0,
           task_desc :0,
+          prioriti :0,
+          due :0,
         },
         page : 0,
         number : 1,
-        limit : 5,
+        limit : 10,
         table : 1,
+        addOn : '',
         order : 'id'
       }
     },
@@ -231,6 +181,12 @@
         }else if(coloums == 'desc'){
           var order = "task_desc"+value[val]
           this.coloums.task_desc =  (val + 1) % 2
+        }else if(coloums == 'prio'){
+          var order = "prioriti"+value[val]
+          this.coloums.prioriti =  (val + 1) % 2
+        }else if(coloums == 'due'){
+          var order = "due_date"+value[val]
+          this.coloums.due =  (val + 1) % 2
         }
         this.order = order
          this.getResults(this.page);
@@ -244,7 +200,25 @@
 
       },
       display(event){
+        this.table = event.value
         console.log(event.value);
+      },
+      changeComplate(data){
+        var app  = this
+        $.ajax({
+          url: '/api/task/complate/'+data,
+          method: 'PUT',
+          dataType : "json",
+          // data: "page="+app.page+"&order="+app.order+"&limit="+app.limit,
+          success: function(data) {
+            if(data.success == true){
+              app.getResults(app.page);
+              console.log(data)
+            }
+              console.log(data.success)
+            
+          }
+        })
       }
     }
   }
