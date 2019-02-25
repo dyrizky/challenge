@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190223061339) do
+ActiveRecord::Schema.define(version: 20190223061340) do
 
   create_table "bukus", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "idBuku"
@@ -22,7 +22,17 @@ ActiveRecord::Schema.define(version: 20190223061339) do
     t.datetime "updated_at",    null: false
   end
 
-  create_table "uses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "task",        default: "", null: false
+    t.string   "task_desc",   default: "", null: false
+    t.string   "prioriti",    default: "", null: false
+    t.integer  "is_complate", default: 0,  null: false
+    t.datetime "due_date"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"

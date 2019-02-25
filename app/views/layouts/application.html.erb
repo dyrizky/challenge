@@ -8,6 +8,9 @@
     <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js' %>
     <%= javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js' %>
     <%= javascript_include_tag 'application' %>
+    <style>
+    
+    </style>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <script type='text/javascript'>
       
@@ -20,12 +23,50 @@
       }
     </script>
   </head>
-  <body class='front'>
-  <%= yield %>
+  <body class="layout-top-nav skin-blue ">
+<div class="wrapper">
 
-    <div id='app'>
-      <router-view></router-view>
+  <header class="main-header">
+    <nav class="navbar navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/" class="navbar-brand"><font color="black"><b>Todo List</b></font></a>
+          
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        
+        
+        <!-- /.navbar-custom-menu -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+  </header>
+  <!-- Full Width Column -->
+  <div class="content-wrapper">
+    <div class="container">
+     <section class="content" >
+        <div id='app'>
+          <router-view></router-view>
+        </div>
+        <%= yield %>
+    </section>
+      <!-- /.content -->
     </div>
+    <!-- /.container -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="pull-right hidden-xs">
+        <b>Version</b> 1.1.0
+      </div>
+      <strong>Copyright &copy; 2014-2016 Almsaeed Studio. All rights reserved.</strong> 
+    </div>
+    <!-- /.container -->
+  </footer>
+</div>
+    
     <%= javascript_pack_tag 'application' %>
   </body>
 </html>
