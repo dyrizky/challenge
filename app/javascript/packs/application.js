@@ -20,10 +20,10 @@ $.ajaxSetup({
       return window.location.href = '/users/sign_in';
     }
     if(xhr.status === 404) {
-      // return window.location.href = '/404';
+      return window.location.href = '/404';
     }
     if(xhr.status === 500) {
-      // return window.location.href = '/500';
+      return window.location.href = '/500';
     }
     return true;
     // return window.location.href = '/500';
