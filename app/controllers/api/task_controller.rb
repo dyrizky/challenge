@@ -30,6 +30,15 @@ class Api::TaskController < AdminController
     @count_tasks = Task.count
     render json: {success: true, data: @tasks, length:@count_tasks}.to_json, status: 200
   end
+  def task_now
+    # if(params[:limit]!="-1")
+      # @tasks = Task.offset(params[:page]).limit(params[:limit]).order(params[:order]).where('due_date < ?', DateTime.now.to_date)
+    # else 
+      @tasks = Task.where('due_date = ?', DateTime.now.to_date)
+    # end
+    # @count_tasks = Task.count
+    render json: {success: true, data: @tasks, length:@count_tasks}.to_json, status: 200
+  end
   def store
     @task = Task.new
     @task.task = params[:task]

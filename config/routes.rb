@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       put 'task/complate/:id', to: "task#complate"
       get 'task/prev', to: "task#previous"
       post 'task/store', to: "task#store"
+      get 'task/notif', to: "task#task_now"
     end
   # end
   get '/admin', to: 'admin#index'

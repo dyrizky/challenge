@@ -8,6 +8,14 @@
         </div>
     <div class="box-body">
               <div class="row">
+                  <div class="col-lg-12">
+                    <div class="callout callout-danger col-sm-6" v-for="task,index in tasksNotif">
+                      <h4>{{task.task}} ({{task.due_date}})</h4>
+
+                      <p>{{task.task_desc}}</p>
+                    </div>
+                  <div class="col-sm-6"></div>
+                  </div>
                   <div class="col-sm-6">
                       <div class="col-lg-12 col-sm-12 form-group" id="">
                             <div id="example1_filter" class="col-lg-2 col-sm-2" >
@@ -117,11 +125,13 @@
       return {
         tasksData : [],
         tasks : '',
+        tasksNotif : [],
         coloums : {
           task :0,
           task_desc :0,
           prioriti :0,
           due :0,
+          
         },
         page : 0,
         number : 1,
@@ -176,6 +186,7 @@
                 
               }
             })
+            app.getNotif()
       },
       sortBy(val,coloums){
         var value = [' ASC',' DESC'];
@@ -249,6 +260,20 @@
                   app.tasks = 0
                   console.log("A")
                 }
+                
+              }
+            })
+      },
+      getNotif(){
+        var app = this
+            $.ajax({
+              url: '/api/task/notif',
+              type: 'get',
+              dataType : "json",
+              // data: "page="+page+"&order="+app.order+"&limit="+app.limit,
+              success: function(data) {
+                app.tasksNotif = data.data;
+                console.log(app.tasksNotif)
                 
               }
             })
