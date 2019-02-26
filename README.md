@@ -15,6 +15,7 @@ create and migrate db
 ```bash
 rails db:create
 rails db:migrate
+rails db:seed
 ```
 ### Run
 running at localhost:3000

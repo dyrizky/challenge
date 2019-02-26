@@ -9,7 +9,7 @@
     <%= javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js' %>
     <%= javascript_include_tag 'application' %>
     <style>
-    
+      
     </style>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <script type='text/javascript'>
@@ -32,7 +32,30 @@
         <div class="navbar-header">
           <a href="/" class="navbar-brand"><font color="black"><b>Todo List</b></font></a>
           
+<div class="navbar-custom-menu">
+      &nbsp;
+      <ul class="nav navbar-nav">
+        <!-- Messages: style can be found in dropdown.less-->
+        <!--  -->
+        <li class="dropdown user user-menu ">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <%= current_user.email %>
+              <span class="label label-warning">0</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  
+                </ul>
+              </li>
+              <li class="footer"><a onClick="signOut()"><font color="black"><b>Sign Out</b></font></a></li>
+            </ul>
+          </li>
+      </ul>
+    </div>
         </div>
+      
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         
@@ -69,4 +92,17 @@
     
     <%= javascript_pack_tag 'application' %>
   </body>
+  <script>
+  function signOut() {
+      $.ajax({
+          url: '/users/sign_out',
+          method: 'DELETE',
+          dataType : "json",
+          // data: "page="+app.page+"&order="+app.order+"&limit="+app.limit,
+          success: function(data) {
+            window.location.href = "/";
+            }
+        })
+  }
+  </script>
 </html>

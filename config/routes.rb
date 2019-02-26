@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   # end
   get '/admin', to: 'admin#index'
   get '/task', to: 'admin#index'
-  match "/admin/*path", to: "admin#index", format: false, via: :get
+  match "/task/*path", to: "admin#index", format: false, via: :get
   root :to => "application#index"
   # match "*path", to: "admin#index", format: false, via: :get
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

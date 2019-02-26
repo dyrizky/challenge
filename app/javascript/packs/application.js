@@ -2,6 +2,8 @@ import Vue from 'vue/dist/vue.esm';
 import router from '../src/routes.js';
 import Paginate from 'vuejs-paginate'
 import ToggleButton from 'vue-js-toggle-button'
+import Datepicker from 'vuejs-datepicker';
+Vue.component('datepicker', Datepicker);
 
 Vue.use(ToggleButton)
 Vue.component('paginate', Paginate)

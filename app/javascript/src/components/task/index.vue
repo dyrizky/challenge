@@ -10,6 +10,9 @@
               <div class="row">
                   <div class="col-sm-6">
                       <div class="col-lg-12 col-sm-12 form-group" id="">
+                            <div id="example1_filter" class="col-lg-2 col-sm-2" >
+                                <button class="btn btn-success" title="Add Some Task" @click="create()"><i class="fa fa-plus"></i></button>
+                              </div>
                             <label class="col-sm-2 control-label">Show </label>
                             <div class="col-sm-3">
                     <select @click="show($event)" class="form-control input-sm">
@@ -25,12 +28,13 @@
                     <div class="col-sm-6">
                         <div class="col-lg-12 col-sm-12 form-group" id="">
                             <label class="col-sm-2 control-label">Display </label>
-                              <div id="example1_filter" class="col-lg-5 col-sm-5 ">
+                              <div id="example1_filter" class="col-lg-4 col-sm-4 ">
                                 <toggle-button  @change="display($event)" color="#82C7EB" :sync="true" :width="70" :value="true" :labels="{checked: 'Table', unchecked: 'Card'}"/>
                               </div>
-                              <div id="example1_filter" class="col-lg-5 col-sm-5" >
+                              <div id="example1_filter" class="col-lg-4 col-sm-4" >
                                 <toggle-button  @change="changePrev($event)" color="#82C7EB" :sync="true" :width="70" :value="true" :labels="{checked: 'All', unchecked: 'Previous'}" />
                               </div>
+                              
                           </div>
                     </div>
               </div>
@@ -256,7 +260,13 @@
           this.getPrev();
         }
         console.log(event.value);
-      }
+      },create(){
+        console.log("c")
+        this.$router.push("/task/create")
+      },
+      
+      
+      
     }
   }
 

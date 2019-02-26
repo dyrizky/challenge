@@ -5,6 +5,7 @@ Vue.use(VueRouter);
 import Error500 from './components/errors/500.vue';
 import Error404 from './components/errors/404.vue';
 import TaskIndex from './components/task/index.vue';
+import TaskCreate from './components/task/create.vue';
 
 const router = new VueRouter({
   mode: 'history',
@@ -12,6 +13,7 @@ const router = new VueRouter({
   routes: [
     { path: '/', redirect: '/task'},
     { path: '/task', component: TaskIndex, name: 'root_path' },
+    { path: '/task/create', component: TaskCreate, name: 'task_create_path' },
     { path: '/500', component: Error500 },
     { path: '/404', component: Error404 },
     { path: '*', redirect: '/404' }
