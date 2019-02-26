@@ -30,4 +30,14 @@ class Api::TaskController < AdminController
     @count_tasks = Task.count
     render json: {success: true, data: @tasks, length:@count_tasks}.to_json, status: 200
   end
+  def store
+    @task = Task.new
+    @task.task = params[:task]
+    @task.task_desc = params[:task_desc]
+    @task.due_date = params[:due_date]
+    @task.prioriti = params[:prioriti]
+    @task.is_complate = 0
+    @task.save!
+    render json: {success: true, data: @tasks, length:@task}.to_json, status: 200
+  end
 end

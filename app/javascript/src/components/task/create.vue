@@ -21,7 +21,7 @@
                     <label for="rm">Task</label>
                     <div class="input-group" id="rm">
                         <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                        <input type="number" autocomplete="off" v-model="task.task" name="task" class="form-control" placeholder="">
+                        <input type="text" autocomplete="off" v-model="task.task" name="task" class="form-control" placeholder="">
                     </div>
                     <span v-if="errors.task" class="label label-danger">{{errors.task}}</span>
                     <span v-else class="label label-default"></span>
@@ -42,21 +42,21 @@
                     <label for="">Desc</label>
                     <div class="input-group" id="">
                         <span class="input-group-addon"><i class="fa fa-clone"></i></span>
-                      <textarea class="form-control"> </textarea>
+                      <textarea class="form-control" v-model="task.task_desc"> </textarea>
                     </div>
-                    <span v-if="errors.bpjs" class="label label-danger">{{errors.bpjs}}</span>
+                    <span v-if="errors.task_desc" class="label label-danger">{{errors.task_desc}}</span>
                     <span v-else class="label label-default"></span>
                 </div>
                      <div class="col-md-8 col-sm-8 col-xs-12 form-group">
                     <label for="">Priority</label>
                     <div class="input-group" id="bpjs">
                         <span class="input-group-addon"><i class="fa fa-clone"></i></span>
-                        <select v-model="task.prioriti" class="form-control">
-                          <option class="1">Priority</option>
-                          <option class="0">Not Priority</option>
+                        <select v-model="task.priority" class="form-control">
+                          <option value="1">Priority</option>
+                          <option value="0">Not Priority</option>
                         </select>
                     </div>
-                    <span v-if="errors.priority" class="label label-danger">{{errors.bpjs}}</span>
+                    <span v-if="errors.priority" class="label label-danger">{{errors.priority}}</span>
                     <span v-else class="label label-default"></span>
                 </div>
                 
@@ -92,15 +92,17 @@
         reservasi: '',
         task : {
           task:'',
-          desc:'',
+          task_desc:'',
           due_date:'',
           priority:''
         },
-        isLoading: true,
-        bpjs:true,
-        globalError : true,
-        
-        errors: {}    
+        errors: {
+            task:'',
+          task_desc:'',
+          due_date:'',
+          priority:''
+
+        }    
     }
     },
     
@@ -111,12 +113,52 @@
       simpan() {
         var app = this
         console.log(this.task);
-          console.log(app.task.task)
-        if(this.task.task == '' ){
-          console.log("kosong")
-          app.errors.task = "Task tidak boleh kosong"
+        console.log(app.task.task)
+        var error = 4;
+            if(this.task.task == '' ){
+            //   console.log("kosong")
+            app.errors.task = "Task tidak boleh kosong"
+            //   console.log(app.errors.task)
+            }else{
+                error = error-1;
+                app.errors.task = ""
+            }
+            if(this.task.task_desc == '' ){
+                app.errors.task_desc = "Task Desc tidak boleh kosong"
+            }else{
+                error = error-1;
+                app.errors.task_desc = ""
+            }
+            if(this.task.due_date == '' ){
+                app.errors.due_date = "Due Date tidak boleh kosong"
+            }else{
+                error = error-1;
+                app.errors.due_date = ""
+            }
+            if(this.task.priority == '' ){
+                app.errors.priority = "Priority tidak boleh kosong"
+            }else{
+                error = error-1;
+                app.errors.priority = ""
+            }
+            if(error == 0){
+                $.ajax({
+                url: '/api/task/store',
+                type: 'post',
+                // dataType : "json",
+                data : {
+                    task : app.task.task,
+                    task_desc : app.task.task_desc,
+                    due_date : app.task.due_date,
+                    prioriti : app.task.priority
+                },
+                success: function(data) {
+                    app.$router.push("/task")
+                    
+                }
+                })
+            }
         }
-      }
       }
     
   }
