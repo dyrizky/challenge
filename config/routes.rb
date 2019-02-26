@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       end
       get 'task', to: "task#index"
       put 'task/complate/:id', to: "task#complate"
+      get 'task/prev', to: "task#previous"
     end
   # end
   get '/admin', to: 'admin#index'

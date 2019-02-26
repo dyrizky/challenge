@@ -29,7 +29,7 @@
                                 <toggle-button  @change="display($event)" color="#82C7EB" :sync="true" :width="70" :value="true" :labels="{checked: 'Table', unchecked: 'Card'}"/>
                               </div>
                               <div id="example1_filter" class="col-lg-5 col-sm-5" >
-                                <toggle-button  @change="display($event)" color="#82C7EB" :sync="true" :width="70" :value="true" :labels="{checked: 'Previous', unchecked: 'All'}" />
+                                <toggle-button  @change="changePrev($event)" color="#82C7EB" :sync="true" :width="70" :value="true" :labels="{checked: 'All', unchecked: 'Previous'}" />
                               </div>
                           </div>
                     </div>
@@ -67,9 +67,9 @@
                 <tr v-for="task,index in tasksData">
                   <td>{{index+number}}</td>
                   <td>
-                  <input type="checkbox" v-if="task.is_complate" checked  @change="changeComplate(task.id)"> 
+                  <label><input type="checkbox" v-if="task.is_complate" checked  @change="changeComplate(task.id)"> 
                   <input type="checkbox" v-else  @change="changeComplate(task.id)"> 
-                    {{task.task}} &nbsp; <span v-if="task.is_complate" class="label label-success">Complate</span></td>
+                    {{task.task}} &nbsp; <span v-if="task.is_complate" class="label label-success">Complate</span></label></td>
                   <td>{{task.task_desc}}</td>
                   <td>{{task.due_date}}</td>
                   <td><span v-if="task.prioriti==1" class="label label-danger">Priority</span></td>
@@ -219,6 +219,43 @@
             
           }
         })
+      },
+      getPrev(page){
+        var app = this;
+        if(typeof page == 'undefined' || page == 0){
+          page = 0;
+          app.page = 0;
+          app.number = 1;
+        }else{
+          app.page = page;
+          page = (page -1)*app.limit;
+          app.number = page+1;
+        }
+            $.ajax({
+              url: '/api/task/prev',
+              type: 'get',
+              dataType : "json",
+              data: "page="+page+"&order="+app.order+"&limit="+app.limit,
+              success: function(data) {
+                app.tasksData = data.data;
+                if(data.length > app.limit && app.limit > 0 ){
+                  app.tasks = Math.ceil(data.length/app.limit);
+                  console.log("B")
+                }else{
+                  app.tasks = 0
+                  console.log("A")
+                }
+                
+              }
+            })
+      },
+      changePrev(event){
+        if(event.value){
+          this.getResults();
+        }else{
+          this.getPrev();
+        }
+        console.log(event.value);
       }
     }
   }
